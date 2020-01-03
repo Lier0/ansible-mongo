@@ -1,0 +1,5 @@
+- name: Restart mongodb
+  service: name=mongodb state=restarted
+
+- name: Reload systemd
+  shell: /bin/systemctl daemon-reload 

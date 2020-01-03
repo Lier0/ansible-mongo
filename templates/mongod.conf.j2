@@ -1,0 +1,45 @@
+# mongod.conf
+
+# for documentation of all options, see:
+#   http://docs.mongodb.org/manual/reference/configuration-options/
+
+# Where and how to store data.
+storage:
+  dbPath: {{ mongo_vars.mongod.db_dir }}
+  journal:
+    enabled: true
+#  engine:
+#  mmapv1:
+#  wiredTiger:
+
+# where to write logging data.
+systemLog:
+  destination: file
+  logAppend: true
+  path: {{ mongo_dirs.log }}/mongod.log
+
+# network interfaces
+net:
+  port: {{ mongo_vars.mongod.port }}
+  bindIp: {{ ansible_eth0.ipv4.address }}
+
+
+#processManagement:
+
+#security:
+
+#operationProfiling:
+
+#replication:
+replication:
+  replSetName: {{ mongo_replSetName.db }}
+
+#sharding:
+sharding:
+  clusterRole: shardsvr
+
+## Enterprise-Only Options:
+
+#auditLog:
+
+#snmp:

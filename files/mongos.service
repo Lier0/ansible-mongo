@@ -1,0 +1,10 @@
+[Unit]
+Description=Server Router: High-performance, schema-free document-oriented database
+After=network.target
+
+[Service]
+User=mongodb
+ExecStart=/usr/bin/mongos --quiet --config /etc/mongo/mongos.conf
+
+[Install]
+WantedBy=multi-user.target

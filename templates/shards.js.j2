@@ -1,0 +1,5 @@
+{% for host in groups['mongo'] %}
+sh.addShard("{{ mongo_replSetName.db }}/{{ hostvars[host].ansible_eth0.ipv4.address }}:{{ mongo_vars.mongod.port }}")
+{% endfor %}
+
+

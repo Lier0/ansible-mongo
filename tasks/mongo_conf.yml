@@ -1,0 +1,27 @@
+- name: Create mongo dirs
+  file: path={{ item.value }} state=directory owner=mongodb group=nogroup mode=0755
+  with_dict: "{{ mongo_dirs }}"
+
+- name: Create mongo db_dirs
+  file: path={{ item.value.db_dir }} state=directory owner=mongodb group=nogroup mode=0755
+  with_dict: "{{ mongo_vars }}"
+  when: item.key != "mongos"
+
+- name: Deploy mongo conf files
+  template: src=templates/{{ item }}.conf.j2 dest={{ mongo_dirs.conf }}/{{ item }}.conf mode=0644
+  with_items: "{{ mongo_vars }}"
+
+- name: Delete default mongo service file
+  file: path=/etc/systemd/system/mongo.service state=absent
+
+- name: Deploy mongo service files
+  template: src=templates/mongo.services.j2 dest=/etc/systemd/system/{{ item.key }}.service mode=0644
+  with_dict: "{{ mongo_vars }}"
+
+- name: Reload systemd
+  shell: /bin/systemctl daemon-reload
+
+- name: Deploy mongo js files
+  template: src=templates/{{ item.value.js }}.j2 dest={{ mongo_dirs.conf }}/{{ item.value.js }} mode=0644
+  with_dict: "{{ mongo_vars }}"
+

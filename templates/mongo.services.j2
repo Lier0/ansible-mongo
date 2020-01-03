@@ -1,0 +1,10 @@
+[Unit]
+Description={{ item.value.desc }}
+After=network.target
+
+[Service]
+User={{ mongo_user }}
+ExecStart=/usr/bin/{{ item.value.bin }} --quiet --config {{ mongo_dirs.conf }}/{{ item.key }}.conf
+
+[Install]
+WantedBy=multi-user.target

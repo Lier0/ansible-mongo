@@ -1,0 +1,3 @@
+- name: Apply {{ item.value.js }} file
+  shell: /usr/bin/mongo --host {{ ansible_eth0.ipv4.address }} --port {{ item.value.port }} {{ mongo_dirs.conf }}/{{ item.value.js }}
+  when: restarted

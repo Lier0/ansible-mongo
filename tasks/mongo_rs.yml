@@ -1,0 +1,14 @@
+- name: (Re)start {{ item }} service
+  service: name={{ item }} state=restarted
+  tags: mongo_rs_only
+
+- name: Wait for {{ item }} service
+  wait_for:
+    host: "{{ ansible_eth0.ipv4.address }}"
+    port: "{{ mongo_vars[item].port }}"
+    timeout: 30
+  tags: mongo_rs_only
+
+- name: "Apply {{ mongo_vars[item].js }} file"
+  shell: /usr/bin/mongo --host {{ ansible_eth0.ipv4.address }} --port {{ mongo_vars[item].port }} {{ mongo_dirs.conf }}/{{ mongo_vars[item].js }}
+  run_once: true

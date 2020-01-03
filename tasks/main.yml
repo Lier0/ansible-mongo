@@ -1,0 +1,15 @@
+- include: mongodb.yml 
+  tags:
+    - mongo
+
+- include: mongo_conf.yml
+  tags:
+    - mongo
+    - mongo_conf
+
+- include: mongo_rs.yml
+  tags:
+    - mongo
+    - mongo_conf
+    - mongo_rs
+  with_items: "{{ mongo_services }}"

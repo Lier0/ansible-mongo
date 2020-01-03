@@ -1,0 +1,38 @@
+mongo_role: mongodb
+mongo_user: mongodb
+
+mongo_dirs:
+  bin:  "/usr/bin"
+  conf: "/etc/{{ mongo_role }}"
+  log:  "/var/log/{{ mongo_role }}"
+  db:   "/var/lib/{{ mongo_role }}"
+
+mongo_replSetName:
+  config: "{{ mongo_cluster_name  }}_config"
+  db:     "{{ mongo_cluster_name  }}_db"
+
+mongo_services:
+  - mongoc
+  - mongod
+  - mongos
+
+mongo_comment: "High-performance, schema-free document-oriented database"
+mongo_vars:
+   mongoc:
+     bin: mongod
+     desc: "Description=Server Config: {{ mongo_comment }}"
+     db_dir: "{{ mongo_dirs.db }}/mongoc"
+     port: "{{ mongoc_port }}"
+     js: csrs.js
+   mongod:
+     bin: mongod
+     desc: "Description=Server Daemon: {{ mongo_comment }}"
+     db_dir:  "{{ mongo_dirs.db }}/mongod"
+     port: "{{ mongod_port }}"
+     js: ssrs.js
+   mongos:
+     bin: mongos
+     desc: "Description=Server Router: {{ mongo_comment }}"
+     db_dir: #"{{ mongo_dirs.db }}/mongos"
+     port: "{{ mongos_port }}"
+     js: shards.js
