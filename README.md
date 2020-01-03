@@ -5,10 +5,10 @@ Primarily designed for a three nodes cluster on Debian 8 (systemd).
 
 ## Vars
 ```
-mongo_cluster_name: mongo_cluster                                                   
-mongod_port: 27017                                                              
-mongoc_port: 27018                                                              
-mongos_port: 27019 
+mongo_cluster_name: mongo_cluster
+mongod_port: 27017
+mongoc_port: 27018
+mongos_port: 27019
 ```
 
 ## Scalability

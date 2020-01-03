@@ -1,4 +1,4 @@
-- include: mongodb.yml 
+- include: mongodb.yml
   tags:
     - mongo
 

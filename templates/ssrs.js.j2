@@ -3,7 +3,7 @@ rs.initiate(
     _id: "{{ mongo_replSetName.db }}",
     members: [
 {% for host in groups['mongo'] %}
-      { _id : {{ loop.index0 }}, host : "{{ hostvars[host].ansible_eth0.ipv4.address }}:{{ mongo_vars.mongod.port }}" }{% if not loop.last %}, {% endif %} 
+      { _id : {{ loop.index0 }}, host : "{{ hostvars[host].ansible_eth0.ipv4.address }}:{{ mongo_vars.mongod.port }}" }{% if not loop.last %}, {% endif %}
 {% endfor %}
     ]
   }

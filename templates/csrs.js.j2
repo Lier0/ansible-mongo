@@ -4,11 +4,11 @@ rs.initiate(
     configsvr: true,
     members: [
 {% for host in groups['mongo'] %}
-      { 
-        _id : {{ loop.index0 }}, 
+      {
+        _id : {{ loop.index0 }},
         host : "{{ hostvars[host].ansible_eth0.ipv4.address }}:{{ mongo_vars.mongoc.port }}",
         priority :{% if loop.first %} 1 {% else %} 0.5 {% endif %}
-      }{% if not loop.last %}, {% endif %} 
+      }{% if not loop.last %}, {% endif %}
 {% endfor %}
     ]
   }
